@@ -1,4 +1,5 @@
 import { parseStyles } from "@/functions/parseStyles"
+import { validatePos } from "@/functions/validatePos"
 import { CSSProperties, useEffect, useMemo, useState } from "react"
 
 type PlayerPos = {
@@ -11,7 +12,7 @@ interface usePlayerProps {
 }
 const usePlayer = ({ }: usePlayerProps) => {
     const [size, setSize] = useState(5)
-    const [speed, setSpeed] = useState(5)
+    const [speed, setSpeed] = useState(2.5)
     const [pos, setPos] = useState<PlayerPos>({
         x: 0,
         y: 0
@@ -22,7 +23,8 @@ const usePlayer = ({ }: usePlayerProps) => {
             const pos = {...old}
             pos.x += x * speed
             pos.y += y * speed
-            return pos
+
+            return validatePos({...pos,size})
         })
     }
 
@@ -51,10 +53,6 @@ const usePlayer = ({ }: usePlayerProps) => {
         })
     }
     useEffect(() => onLoadPlayer, [])
-
-
-    console.log({ pos });
-
 
     const style = useMemo<CSSProperties>(() => {
         return parseStyles({

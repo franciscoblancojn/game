@@ -1,4 +1,5 @@
 import { GLOBAL } from "@/const/global"
+import { MAP } from "@/const/map"
 import { parseStyles } from "@/functions/parseStyles"
 import { CSSProperties, ReactNode, useEffect, useMemo, useState } from "react"
 
@@ -29,7 +30,7 @@ const useMap = ({ }: useMapProps) => {
 
 
     const onLoadMap = () => {
-        const size = Math.min(window.innerHeight,window.innerWidth) / GLOBAL.REM
+        const size = Math.min(window.innerHeight,window.innerWidth) / MAP.SCALE
         setSize(size)
     }
     useEffect(() => onLoadMap, [])
@@ -47,7 +48,7 @@ export interface MapProps {
 export const Map = ({children}:MapProps) => {
     const map = useMap({})
     return <>
-        <div data-id="map" style={{width:`${GLOBAL.REM}rem`}} >
+        <div data-id="map" style={{width:`${MAP.SCALE}rem`}} >
             {children}
         </div>
         <style jsx global>
