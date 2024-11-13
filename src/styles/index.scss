@@ -1,0 +1,13 @@
+body{
+    background: black;
+    color: white;
+    margin: 0;
+    display: grid;
+    place-items: center;
+}
+html{
+    margin: 0;
+}
+
+@import "../player/styles.scss";
+@import "../map/styles.scss";

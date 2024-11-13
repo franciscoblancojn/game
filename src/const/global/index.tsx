@@ -1,3 +1,4 @@
 export const GLOBAL = {
-    NAME:"Name Game Pending"
+    NAME:"Name Game Pending",
+    REM : 100
 }

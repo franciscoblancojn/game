@@ -1,0 +1,24 @@
+body {
+  background: black;
+  color: white;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+html {
+  margin: 0;
+}
+
+[data-id=player] {
+  background: white;
+  position: relative;
+}
+
+[data-id=map] {
+  background: gray;
+  overflow: auto;
+  aspect-ratio: 1/1;
+}
+
+/*# sourceMappingURL=index.css.map */
