@@ -24,7 +24,7 @@ export const useHuman = ({
   const [move, setMove] = useState(false);
   const [directionX, setDirectionX] = useState<"right" | "left">("right");
 
-  const onMove = ({ x, y,speed : speedP }: HumanPos) => {
+  const onMove = ({ x, y, speed: speedP }: HumanPos) => {
     const length = Math.max(Math.sqrt(Number(x) ** 2 + Number(y) ** 2), 0.1);
     const nx = x / length;
     const ny = y / length;
@@ -71,54 +71,47 @@ export const useHuman = ({
               <path
                 data-id="border"
                 d="M15 14H7V13H6V4H7V3H15V4H16V13H15V14Z"
-                fill="black"
+                fill="var(--human-border,black)"
               />
-              <path data-id="hat" d="M15 4H7V5H15V4Z" fill="#464647" />
+              <path data-id="hat" d="M15 4H7V5H15V4Z" fill="var(--human-hat,#464647)" />
               <path
                 data-id="face"
                 d="M15 6H7V12H8V13H14V12H15V6Z"
-                fill="#E5AA7A"
+                fill="var(--human-face,#E5AA7A)"
               />
               <g data-id="eyes">
-                <path data-id="eyeleft" d="M9 9V8H11V9H9Z" fill="black" />
-                <path data-id="eyeright" d="M15 8H13V9H15V8Z" fill="black" />
+                <path data-id="eyeleft" d="M9 9V8H11V9H9Z" fill="var(--human-eye,black)" />
+                <path data-id="eyeright" d="M15 8H13V9H15V8Z" fill="var(--human-eye,black)" />
               </g>
             </g>
             <g data-id="Body-stop" className="human-body-stop">
               <path
                 data-id="border_2"
                 d="M10 20H7V13H15V20H12V18H10V20Z"
-                fill="black"
+                fill="var(--human-border,black)"
               />
               <path
                 data-id="legs"
                 d="M8 19H9V17H13V19H14V16H8V19Z"
-                fill="#9C5B3C"
+                fill="var(--human-legs,#9C5B3C)"
               />
-              <path data-id="body2" d="M14 15H8V16H14V15Z" fill="#474747" />
-              <path data-id="body1" d="M14 14H8V15H14V14Z" fill="#B4B4B5" />
             </g>
             <g data-id="Body-move" className="human-body-move">
               <path
                 data-id="border_3"
                 d="M12 18H10H9V19H8V20H6V18H7V13H15V18H16V20H14V19H13V18H12Z"
-                fill="black"
+                fill="var(--human-border,black)"
               />
               <path
                 data-id="legs_2"
                 d="M7 19V18H8V16H14V18H15V19H14V18H13V17H9V18H8V19H7Z"
-                fill="#9C5B3C"
+                fill="var(--human-legs,#9C5B3C)"
               />
-              <path data-id="body2_2" d="M14 15H8V16H14V15Z" fill="#474747" />
-              <path data-id="body1_2" d="M14 14H8V15H14V14Z" fill="#B4B4B5" />
             </g>
-
-            {/* <g data-id="Body-move" className="human-body-move">
-                        <path data-id="border_2" d="M11 18H10H9V19H8V20H6V18H7V13H15V18H14V19H13V20H11V19V18Z" fill="black" />
-                        <path data-id="legs" d="M7 19V18H8V16H14V18H13V19H12V18H13V17H9V18H8V19H7Z" fill="#9C5B3C" />
-                        <path data-id="body2" d="M14 15H8V16H14V15Z" fill="#474747" />
-                        <path data-id="body1" d="M14 14H8V15H14V14Z" fill="#B4B4B5" />
-                    </g> */}
+            <g data-id="Body-top" className="human-body-top">
+              <path data-id="body2" d="M14 15H8V16H14V15Z" fill="var(--human-body-1,#474747)" />
+              <path data-id="body1" d="M14 14H8V15H14V14Z" fill="var(--human-body-2,#B4B4B5)" />
+            </g>
           </svg>
         </div>
       </>

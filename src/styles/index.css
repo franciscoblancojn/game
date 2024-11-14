@@ -24,8 +24,7 @@ html {
 }
 .human-head {
   translate: 0 0;
-  animation: animate-human-head var(--speed-head) steps(3, end) infinite
-    alternate;
+  animation: animate-human-head var(--speed-head) steps(3, end) infinite alternate;
 }
 @keyframes animate-human-head {
   from {
@@ -40,8 +39,7 @@ html {
     opacity: 0;
   }
 }
-.human-body-stop,
-.human-body-move {
+.human-body-stop, .human-body-move {
   opacity: 1;
   animation: var(--animation-move-body);
 }
@@ -61,7 +59,16 @@ html {
   transform: rotateY(180deg);
 }
 
-[data-id="map"] {
+.enemy {
+  --human-hat:#a50606;
+  --human-face:#047b00;
+  --human-eye: #c10039;
+  --human-body-1: #047b00;
+  --human-body-2: #034e01;
+  --human-legs: #474747;
+}
+
+[data-id=map] {
   background: gray;
   overflow: auto;
   width: 100dvw;
