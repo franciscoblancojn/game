@@ -29,7 +29,7 @@ const usePlayer = ({ }: usePlayerProps) => {
     onMove({
       x: keyPress.d ? 1 : keyPress.a ? -1 : 0,
       y: keyPress.s ? 1 : keyPress.w ? -1 : 0,
-      speed: jump.jump ? 1 : undefined
+      speed: jump.jump ? PLAYER.JUMP_SPEED : PLAYER.SPEED
     });
   };
 

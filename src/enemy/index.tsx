@@ -1,13 +1,16 @@
 
 import { useHuman } from "@/human";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 
 interface useEnemyProps { }
 const useEnemy = ({ }: useEnemyProps) => {
 
-  const { Human, onMove } = useHuman({});
+  const { Human, onMove } = useHuman({defaultPos : {
+    x:Math.random()*100,
+    y:Math.random()*100
+  },});
 
   const onMoveEnemy = () => {
     // onMove({
