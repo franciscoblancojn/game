@@ -1,6 +1,11 @@
 .human{
     --speed-head:.75s;
     --speed-body-move:.25s;
+
+
+    --animation-move-body : animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
+
+
     position: relative;
     transition: .1s;
     svg{
@@ -30,14 +35,25 @@
         &-stop,
         &-move{
             opacity: 1;
-            animation: animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
+            animation: var(--animation-move-body);
 
         }
         &-stop{
-
+            opacity: 1;
         }
         &-move{
             animation-delay: var(--speed-body-move);
+        }
+    }
+    &-stop{
+        --animation-move-body :none;
+        .human-body-move{
+            opacity: 0;
+        }
+    }
+    &-directionX{
+        &-left{
+            transform: rotateY(180deg);
         }
     }
 }

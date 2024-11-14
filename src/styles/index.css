@@ -13,6 +13,7 @@ html {
 .human {
   --speed-head:.75s;
   --speed-body-move:.25s;
+  --animation-move-body: animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
   position: relative;
   transition: 0.1s;
 }
@@ -39,10 +40,22 @@ html {
 }
 .human-body-stop, .human-body-move {
   opacity: 1;
-  animation: animate-body-move var(--speed-body-move) steps(1, end) infinite alternate;
+  animation: var(--animation-move-body);
+}
+.human-body-stop {
+  opacity: 1;
 }
 .human-body-move {
   animation-delay: var(--speed-body-move);
+}
+.human-stop {
+  --animation-move-body:none;
+}
+.human-stop .human-body-move {
+  opacity: 0;
+}
+.human-directionX-left {
+  transform: rotateY(180deg);
 }
 
 [data-id=map] {

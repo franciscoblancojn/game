@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "export": "next export",
+    "prettier": "npx prettier src '!**/*.stories.tsx' --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "lint": "npx eslint src",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "fle": "npm run flb && npm run export",
+    "flb": "npm run format && npm run lint && npm run build",
     "sass": "sass ./src/styles/index.scss:./src/styles/index.css"
   },
   "dependencies": {
@@ -20,6 +27,12 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "15.0.3"
+    "eslint-config-next": "15.0.3",
+    "@typescript-eslint/eslint-plugin": "7.5.0",
+    "@typescript-eslint/parser": "7.5.0",
+    "eslint-plugin-storybook": "0.8.0",
+    "prettier": "3.2.5",
+    "ts-loader": "9.5.1",
+    "tslib": "2.6.2"
   }
 }

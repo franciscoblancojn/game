@@ -13,23 +13,29 @@ export interface useHumanProps {
     defaultPos?: HumanPos
     onLoad?: () => void
 }
-export const useHuman = ({ defaultSize = 10, defaultSpeed = .2, defaultPos = { x: 0, y: 0 }, onLoad }: useHumanProps) => {
+export const useHuman = ({ defaultSize = 10, defaultSpeed = .2, defaultPos = { x: 0, y: 0 }, onLoad, }: useHumanProps) => {
 
     const [size, setSize] = useState(defaultSize)
     const [speed, setSpeed] = useState(defaultSpeed)
     const [pos, setPos] = useState<HumanPos>(defaultPos)
+    const [move, setMove] = useState(false)
+    const [directionX, setDirectionX] = useState<"right" | "left">("right")
 
     const onMove = ({ x, y }: HumanPos) => {
-        const length = Math.max(Math.sqrt(Number(x) ** 2 + Number(y) ** 2),0.1);
+        const length = Math.max(Math.sqrt(Number(x) ** 2 + Number(y) ** 2), 0.1);
         const nx = x / length;
         const ny = y / length;
-        
+
         setPos(old => {
             const pos = { ...old }
-            pos.x += nx * speed 
+            pos.x += nx * speed
             pos.y += ny * speed
             return validatePos({ ...pos, size })
         })
+        if (x != 0) {
+            setDirectionX(x > 0 ? "right" : "left")
+        }
+        setMove((x + y) != 0)
     }
     const onLoadHuman = () => {
         onLoad?.()
@@ -47,7 +53,7 @@ export const useHuman = ({ defaultSize = 10, defaultSpeed = .2, defaultPos = { x
 
     const Human = useMemo(() => {
         return <>
-            <div data-id="human" className="human" style={style} >
+            <div data-id="human" className={`human ${move ? "human-move" : "human-stop"} human-directionX-${directionX}`} style={style} >
                 <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g data-id="Head" className="human-head">
                         <path data-id="border" d="M15 14H7V13H6V4H7V3H15V4H16V13H15V14Z" fill="black" />
@@ -70,10 +76,17 @@ export const useHuman = ({ defaultSize = 10, defaultSpeed = .2, defaultPos = { x
                         <path data-id="body2_2" d="M14 15H8V16H14V15Z" fill="#474747" />
                         <path data-id="body1_2" d="M14 14H8V15H14V14Z" fill="#B4B4B5" />
                     </g>
+
+                    {/* <g data-id="Body-move" className="human-body-move">
+                        <path data-id="border_2" d="M11 18H10H9V19H8V20H6V18H7V13H15V18H14V19H13V20H11V19V18Z" fill="black" />
+                        <path data-id="legs" d="M7 19V18H8V16H14V18H13V19H12V18H13V17H9V18H8V19H7Z" fill="#9C5B3C" />
+                        <path data-id="body2" d="M14 15H8V16H14V15Z" fill="#474747" />
+                        <path data-id="body1" d="M14 14H8V15H14V14Z" fill="#B4B4B5" />
+                    </g> */}
                 </svg>
             </div>
         </>
-    }, [style])
+    }, [style, directionX, move])
 
 
     return {
