@@ -48,7 +48,7 @@ export interface MapProps {
 export const Map = ({children}:MapProps) => {
     const map = useMap({})
     return <>
-        <div data-id="map" style={{width:`${MAP.SCALE}rem`}} >
+        <div data-id="map" >
             {children}
         </div>
         <style jsx global>

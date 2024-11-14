@@ -78,6 +78,9 @@ export const Player = () => {
 
 
     return <>
-        <div data-id="player" style={player.style} />
+        <div data-id="player" className="player" style={player.style} >
+            <div data-id="player-head"  className="player-head" />
+            <div data-id="player-body" className="player-body" />
+        </div>
     </>
 }

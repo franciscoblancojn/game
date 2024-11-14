@@ -10,15 +10,24 @@ html {
   margin: 0;
 }
 
-[data-id=player] {
+.player {
   background: white;
   position: relative;
 }
-
+.player-head, .player-body {
+  background: url(/assets/player-2.png);
+  background-repeat: no-repeat;
+  background-size: 300%;
+  width: 100%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  inset: 0;
+}
 [data-id=map] {
   background: gray;
   overflow: auto;
-  aspect-ratio: 1/1;
+  width: 100dvw;
+  height: 100dvh;
 }
 
 /*# sourceMappingURL=index.css.map */
