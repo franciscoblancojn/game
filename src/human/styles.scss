@@ -1,0 +1,43 @@
+.human{
+    --speed-head:.75s;
+    --speed-body-move:.25s;
+    position: relative;
+    transition: .1s;
+    svg{
+        width: 100%;
+        height: 100%;
+    }
+    &-head{
+        translate: 0 0;
+
+        animation: animate-human-head var(--speed-head) steps(3,end) infinite alternate ;
+
+        @keyframes animate-human-head {
+            from {
+                translate: 0 0;
+            }
+            to {
+                translate: 0 1px;
+            }
+        }
+    }
+    &-body{
+        @keyframes animate-body-move {
+            50%{
+                opacity: 0;
+            }
+        }
+        &-stop,
+        &-move{
+            opacity: 1;
+            animation: animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
+
+        }
+        &-stop{
+
+        }
+        &-move{
+            animation-delay: var(--speed-body-move);
+        }
+    }
+}

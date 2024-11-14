@@ -10,19 +10,41 @@ html {
   margin: 0;
 }
 
-.player {
-  background: white;
+.human {
+  --speed-head:.75s;
+  --speed-body-move:.25s;
   position: relative;
+  transition: 0.1s;
 }
-.player-head, .player-body {
-  background: url(/assets/player-2.png);
-  background-repeat: no-repeat;
-  background-size: 300%;
+.human svg {
   width: 100%;
-  aspect-ratio: 1/1;
-  position: absolute;
-  inset: 0;
+  height: 100%;
 }
+.human-head {
+  translate: 0 0;
+  animation: animate-human-head var(--speed-head) steps(3, end) infinite alternate;
+}
+@keyframes animate-human-head {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 1px;
+  }
+}
+@keyframes animate-body-move {
+  50% {
+    opacity: 0;
+  }
+}
+.human-body-stop, .human-body-move {
+  opacity: 1;
+  animation: animate-body-move var(--speed-body-move) steps(1, end) infinite alternate;
+}
+.human-body-move {
+  animation-delay: var(--speed-body-move);
+}
+
 [data-id=map] {
   background: gray;
   overflow: auto;
