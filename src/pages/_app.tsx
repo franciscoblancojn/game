@@ -11,16 +11,12 @@ export default function App({ Component, pageProps }: AppProps) {
     setIsClient(true); // Set to true only on client
   }, []);
 
-  return <>
-    <Head>
-      <title>
-        {GLOBAL.NAME}
-      </title>
-    </Head>
-    {
-      isClient
-      &&
-      <Component {...pageProps} />
-    }
-  </>;
+  return (
+    <>
+      <Head>
+        <title>{GLOBAL.NAME}</title>
+      </Head>
+      {isClient && <Component {...pageProps} />}
+    </>
+  );
 }

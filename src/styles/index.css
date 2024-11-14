@@ -11,9 +11,10 @@ html {
 }
 
 .human {
-  --speed-head:.75s;
-  --speed-body-move:.25s;
-  --animation-move-body: animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
+  --speed-head: 0.75s;
+  --speed-body-move: 0.25s;
+  --animation-move-body: animate-body-move var(--speed-body-move) steps(1, end)
+    infinite alternate;
   position: relative;
   transition: 0.1s;
 }
@@ -23,7 +24,8 @@ html {
 }
 .human-head {
   translate: 0 0;
-  animation: animate-human-head var(--speed-head) steps(3, end) infinite alternate;
+  animation: animate-human-head var(--speed-head) steps(3, end) infinite
+    alternate;
 }
 @keyframes animate-human-head {
   from {
@@ -38,7 +40,8 @@ html {
     opacity: 0;
   }
 }
-.human-body-stop, .human-body-move {
+.human-body-stop,
+.human-body-move {
   opacity: 1;
   animation: var(--animation-move-body);
 }
@@ -49,7 +52,7 @@ html {
   animation-delay: var(--speed-body-move);
 }
 .human-stop {
-  --animation-move-body:none;
+  --animation-move-body: none;
 }
 .human-stop .human-body-move {
   opacity: 0;
@@ -58,7 +61,7 @@ html {
   transform: rotateY(180deg);
 }
 
-[data-id=map] {
+[data-id="map"] {
   background: gray;
   overflow: auto;
   width: 100dvw;

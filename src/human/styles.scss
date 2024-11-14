@@ -1,59 +1,58 @@
-.human{
-    --speed-head:.75s;
-    --speed-body-move:.25s;
+.human {
+  --speed-head: 0.75s;
+  --speed-body-move: 0.25s;
 
+  --animation-move-body: animate-body-move var(--speed-body-move) steps(1, end)
+    infinite alternate;
 
-    --animation-move-body : animate-body-move var(--speed-body-move) steps(1,end) infinite alternate;
+  position: relative;
+  transition: 0.1s;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  &-head {
+    translate: 0 0;
 
+    animation: animate-human-head var(--speed-head) steps(3, end) infinite
+      alternate;
 
-    position: relative;
-    transition: .1s;
-    svg{
-        width: 100%;
-        height: 100%;
-    }
-    &-head{
+    @keyframes animate-human-head {
+      from {
         translate: 0 0;
-
-        animation: animate-human-head var(--speed-head) steps(3,end) infinite alternate ;
-
-        @keyframes animate-human-head {
-            from {
-                translate: 0 0;
-            }
-            to {
-                translate: 0 1px;
-            }
-        }
+      }
+      to {
+        translate: 0 1px;
+      }
     }
-    &-body{
-        @keyframes animate-body-move {
-            50%{
-                opacity: 0;
-            }
-        }
-        &-stop,
-        &-move{
-            opacity: 1;
-            animation: var(--animation-move-body);
-
-        }
-        &-stop{
-            opacity: 1;
-        }
-        &-move{
-            animation-delay: var(--speed-body-move);
-        }
+  }
+  &-body {
+    @keyframes animate-body-move {
+      50% {
+        opacity: 0;
+      }
     }
-    &-stop{
-        --animation-move-body :none;
-        .human-body-move{
-            opacity: 0;
-        }
+    &-stop,
+    &-move {
+      opacity: 1;
+      animation: var(--animation-move-body);
     }
-    &-directionX{
-        &-left{
-            transform: rotateY(180deg);
-        }
+    &-stop {
+      opacity: 1;
     }
+    &-move {
+      animation-delay: var(--speed-body-move);
+    }
+  }
+  &-stop {
+    --animation-move-body: none;
+    .human-body-move {
+      opacity: 0;
+    }
+  }
+  &-directionX {
+    &-left {
+      transform: rotateY(180deg);
+    }
+  }
 }
