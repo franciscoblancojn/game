@@ -22,7 +22,7 @@ html {
   width: 100%;
   height: 100%;
 }
-.human-head {
+.human [data-id=Head] {
   translate: 0 0;
   animation: animate-human-head var(--speed-head) steps(3, end) infinite alternate;
 }
@@ -39,24 +39,47 @@ html {
     opacity: 0;
   }
 }
-.human-body-stop, .human-body-move {
+.human [data-id=Body-stop],
+.human [data-id=Body-move] {
   opacity: 1;
   animation: var(--animation-move-body);
 }
-.human-body-stop {
+.human [data-id=Body-stop] {
   opacity: 1;
 }
-.human-body-move {
+.human [data-id=Body-move] {
   animation-delay: var(--speed-body-move);
 }
 .human-stop {
   --animation-move-body: none;
 }
-.human-stop .human-body-move {
+.human-stop [data-id=Body-move] {
   opacity: 0;
 }
 .human-directionX-left {
   transform: rotateY(180deg);
+}
+.human [data-id=border] {
+  fill: var(--human-border, black);
+}
+.human [data-id=hat] {
+  fill: var(--human-hat, #464647);
+}
+.human [data-id=face] {
+  fill: var(--human-face, #E5AA7A);
+}
+.human [data-id=eyeleft],
+.human [data-id=eyeright] {
+  fill: var(--human-eye, black);
+}
+.human [data-id=legs] {
+  fill: vvar(--human-legs, #9C5B3C);
+}
+.human [data-id=body1] {
+  fill: var(--human-body-1, #B4B4B5);
+}
+.human [data-id=body2] {
+  fill: var(--human-body-2, #474747);
 }
 
 .enemy {

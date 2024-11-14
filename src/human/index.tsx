@@ -62,57 +62,34 @@ export const useHuman = ({
           className={`human ${move ? "human-move" : "human-stop"} human-directionX-${directionX}`}
           style={style}
         >
-          <svg
-            viewBox="0 0 22 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g data-id="Head" className="human-head">
-              <path
-                data-id="border"
-                d="M15 14H7V13H6V4H7V3H15V4H16V13H15V14Z"
-                fill="var(--human-border,black)"
-              />
-              <path data-id="hat" d="M15 4H7V5H15V4Z" fill="var(--human-hat,#464647)" />
-              <path
-                data-id="face"
-                d="M15 6H7V12H8V13H14V12H15V6Z"
-                fill="var(--human-face,#E5AA7A)"
-              />
-              <g data-id="eyes">
-                <path data-id="eyeleft" d="M9 9V8H11V9H9Z" fill="var(--human-eye,black)" />
-                <path data-id="eyeright" d="M15 8H13V9H15V8Z" fill="var(--human-eye,black)" />
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g data-id="Player">
+              <g data-id="Body">
+                <g data-id="Head">
+                  <path data-id="border" d="M14 13H6V12H5V4H6V3H14V4H15V12H14V13Z" fill="black" />
+                  <path data-id="hat" d="M14 4H6V5H14V4Z" fill="#464647" />
+                  <path data-id="face" d="M14 6H6V11H7V12H13V11H14V6Z" fill="#E5AA7A" />
+                  <g data-id="eyes">
+                    <path data-id="eyeleft" d="M8 9V8H10V9H8Z" fill="black" />
+                    <path data-id="eyeright" d="M14 8H12V9H14V8Z" fill="black" />
+                  </g>
+                </g>
+                <g data-id="Body-stop">
+                  <path data-id="border_2" d="M9 19H6V12H14V19H11V17H9V19Z" fill="black" />
+                  <path data-id="legs" d="M7 18H8V16H12V18H13V15H7V18Z" fill="#9C5B3C" />
+                  <path data-id="body2" d="M13 14H7V15H13V14Z" fill="#474747" />
+                  <path data-id="body1" d="M13 13H7V14H13V13Z" fill="#B4B4B5" />
+                </g>
+                <g data-id="Body-move">
+                  <path data-id="border_3" d="M11 17H9H8V18H7V19H5V17H6V12H14V17H15V19H13V18H12V17H11Z" fill="black" />
+                  <path data-id="legs_2" d="M6 18V17H7V15H13V17H14V18H13V17H12V16H8V17H7V18H6Z" fill="#9C5B3C" />
+                  <path data-id="body2" d="M13 14H7V15H13V14Z" fill="#474747" />
+                  <path data-id="body1" d="M13 13H7V14H13V13Z" fill="#B4B4B5" />
+                </g>
               </g>
             </g>
-            <g data-id="Body-stop" className="human-body-stop">
-              <path
-                data-id="border_2"
-                d="M10 20H7V13H15V20H12V18H10V20Z"
-                fill="var(--human-border,black)"
-              />
-              <path
-                data-id="legs"
-                d="M8 19H9V17H13V19H14V16H8V19Z"
-                fill="var(--human-legs,#9C5B3C)"
-              />
-            </g>
-            <g data-id="Body-move" className="human-body-move">
-              <path
-                data-id="border_3"
-                d="M12 18H10H9V19H8V20H6V18H7V13H15V18H16V20H14V19H13V18H12Z"
-                fill="var(--human-border,black)"
-              />
-              <path
-                data-id="legs_2"
-                d="M7 19V18H8V16H14V18H15V19H14V18H13V17H9V18H8V19H7Z"
-                fill="var(--human-legs,#9C5B3C)"
-              />
-            </g>
-            <g data-id="Body-top" className="human-body-top">
-              <path data-id="body2" d="M14 15H8V16H14V15Z" fill="var(--human-body-1,#474747)" />
-              <path data-id="body1" d="M14 14H8V15H14V14Z" fill="var(--human-body-2,#B4B4B5)" />
-            </g>
           </svg>
+
         </div>
       </>
     );

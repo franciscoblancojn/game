@@ -19,7 +19,7 @@
     width: 100%;
     height: 100%;
   }
-  &-head {
+  [data-id="Head"]{
     translate: 0 0;
 
     animation: animate-human-head var(--speed-head) steps(3, end) infinite
@@ -34,27 +34,25 @@
       }
     }
   }
-  &-body {
-    @keyframes animate-body-move {
-      50% {
-        opacity: 0;
-      }
+  @keyframes animate-body-move {
+    50% {
+      opacity: 0;
     }
-    &-stop,
-    &-move {
-      opacity: 1;
-      animation: var(--animation-move-body);
-    }
-    &-stop {
-      opacity: 1;
-    }
-    &-move {
-      animation-delay: var(--speed-body-move);
-    }
+  }
+  [data-id="Body-stop"],
+  [data-id="Body-move"] {
+    opacity: 1;
+    animation: var(--animation-move-body);
+  }
+  [data-id="Body-stop"] {
+    opacity: 1;
+  }
+  [data-id="Body-move"] {
+    animation-delay: var(--speed-body-move);
   }
   &-stop {
     --animation-move-body: none;
-    .human-body-move {
+    [data-id="Body-move"] {
       opacity: 0;
     }
   }
@@ -63,4 +61,28 @@
       transform: rotateY(180deg);
     }
   }
+
+  [data-id="border"]{
+    fill: var(--human-border,black);
+  }
+  [data-id="hat"]{
+    fill: var(--human-hat,#464647);
+  }
+  [data-id="face"]{
+    fill: var(--human-face,#E5AA7A);
+  }
+  [data-id="eyeleft"],
+  [data-id="eyeright"]{
+    fill: var(--human-eye,black);
+  }
+  [data-id="legs"]{
+    fill: vvar(--human-legs,#9C5B3C);
+  }
+  [data-id="body1"]{
+    fill: var(--human-body-1,#B4B4B5);
+  }
+  [data-id="body2"]{
+    fill: var(--human-body-2,#474747);
+  }
+
 }
