@@ -1,6 +1,6 @@
 import { PLAYER } from "@/const/player";
 import { HumanPos, useHuman } from "@/entities/human";
-import {  useData } from "fenextjs";
+import { useData } from "fenextjs";
 import { useEffect, useState } from "react";
 
 const PlayerKeyMoveConst = ["w", "d", "s", "a"] as const;
@@ -12,45 +12,70 @@ const PlayerKeyJumpConst = [" "] as const;
 type PlayerKeyJump = (typeof PlayerKeyMoveConst)[number];
 
 interface PlayerData {
-  pos?:HumanPos
-  size?:number
+  pos?: HumanPos
+  size?: number
   jump?: boolean
-  validJump?: boolean
+  coolDownJump?: boolean
+  live: number
+  coolDownHit?: boolean
 }
 export const usePlayerData = () => {
-  const DATA =  useData<PlayerData>({validJump: true,size:10},{
-    useGlobalContext:'player'
+  const { data: player, setDataFunction, onConcatData, onChangeData } = useData<PlayerData>({ coolDownJump: false, size: 10, live: 100, coolDownHit: false }, {
+    useGlobalContext: 'player'
   })
+  console.log("live", player.live);
 
-  const onJump = async () => {
-    DATA.setDataFunction((e) => {
-      if (e.validJump) {
+
+  const onJump = () => {
+    setDataFunction((e) => {
+      if (e.coolDownJump == false) {
         setTimeout(() => {
-          DATA.onConcatData({
+          onConcatData({
             jump: false,
-            validJump: false
+            coolDownJump: true
           })
         }, PLAYER.JUMP_TIME);
         setTimeout(() => {
-          DATA.onConcatData({
+          onConcatData({
             jump: false,
-            validJump: true
+            coolDownJump: false
           })
         }, PLAYER.JUMP_COOLDOWN);
         return {
           ...e,
           jump: true,
-          validJump: false
+          coolDownJump: true
         }
       }
       return e
     })
-    
+
+  }
+  const onHit = (hit: number) => {
+    setDataFunction(old => {
+      if(old.coolDownHit){
+        return old
+      }
+      setTimeout(() => {
+        onConcatData({
+          coolDownHit:false
+        })
+      }, PLAYER.HIT_COOLDOWN);
+      return {
+        ...old,
+        coolDownHit:true,
+        live: Math.max(old.live - hit, 0)
+      }
+    })
   }
 
+  const setPos = onChangeData("pos")
+
   return {
-    ...DATA,
-    onJump
+    player,
+    onJump,
+    onHit,
+    setPos
   }
 }
 
@@ -61,18 +86,18 @@ const usePlayer = ({ }: usePlayerProps) => {
     [id in PlayerKeyMove]?: boolean;
   };
   const [keyPress, setKeyPress] = useState<KeyPressType>({});
-  const {data,onJump,onChangeData} = usePlayerData()
+  const { player, onJump, setPos } = usePlayerData()
 
   const { Human, onMove } = useHuman({
-    onChangePos:onChangeData("pos"),
-    size:data.size
+    onChangePos: setPos,
+    size: player.size
   });
 
   const onMovePlayer = (keyPress: KeyPressType) => {
     const pos = {
       x: keyPress.d ? 1 : keyPress.a ? -1 : 0,
       y: keyPress.s ? 1 : keyPress.w ? -1 : 0,
-      speed: data.jump ? PLAYER.JUMP_SPEED : PLAYER.SPEED
+      speed: player.jump ? PLAYER.JUMP_SPEED : PLAYER.SPEED
     }
     onMove(pos);
   };
@@ -92,7 +117,7 @@ const usePlayer = ({ }: usePlayerProps) => {
         return keyP;
       });
     }
-    if (PlayerKeyJumpConst.includes(key ) && value) {
+    if (PlayerKeyJumpConst.includes(key) && value) {
       onJump()
     }
   };
@@ -103,7 +128,7 @@ const usePlayer = ({ }: usePlayerProps) => {
     return () => {
       clearInterval(t);
     };
-  }, [keyPress,data.jump]);
+  }, [keyPress, player.jump]);
 
   const onLoadPlayer = () => {
     document.addEventListener("keydown", onChangeKeyPress(true));

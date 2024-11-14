@@ -1,5 +1,3 @@
-
-import { useCronAction } from "@/cron/action";
 import { useHuman } from "@/entities/human";
 import { usePlayerData } from "@/entities/player";
 import { useEffect } from "react";
@@ -8,16 +6,7 @@ import { useEffect } from "react";
 
 interface useEnemyProps { }
 const useEnemy = ({ }: useEnemyProps) => {
-
-  const { data:player } = usePlayerData()
-  // console.log({player});
-  
-  // useCronAction({
-  //   onActionExecute:()=>{
-  //     console.log(posPlayer);
-      
-  //   }
-  // })
+  const { player ,onHit} = usePlayerData()
 
   const { Human, onMove,pos, size} = useHuman({defaultPos : {
     x:Math.random()*100,
@@ -30,7 +19,9 @@ const useEnemy = ({ }: useEnemyProps) => {
   }
 
   const onToushPlayer = () => {
-    console.log(getIfToushPlayer());
+    if(getIfToushPlayer()){
+      onHit(1)
+    }
     
   }
   useEffect(onToushPlayer,[ player.pos,pos])
