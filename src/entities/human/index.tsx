@@ -13,12 +13,14 @@ export interface useHumanProps {
   speed?: number;
   defaultPos?: HumanPos;
   onLoad?: () => void;
+  onChangePos?:(pos:HumanPos)=>void
 }
 export const useHuman = ({
   size = 10,
   speed = 0.2,
   defaultPos = { x: 0, y: 0 },
   onLoad,
+  onChangePos,
 }: useHumanProps) => {
   const [pos, setPos] = useState<HumanPos>(defaultPos);
   const [move, setMove] = useState(false);
@@ -33,7 +35,12 @@ export const useHuman = ({
       const pos = { ...old };
       pos.x += nx * (speedP ?? speed);
       pos.y += ny * (speedP ?? speed);
-      return validatePos({ ...pos, size });
+      const newPos = validatePos({ ...pos, size });
+      if(JSON.stringify(old)==JSON.stringify(newPos)){
+        return old
+      }
+      onChangePos?.(newPos)
+      return newPos
     });
     if (x != 0) {
       setDirectionX(x > 0 ? "right" : "left");
@@ -97,6 +104,7 @@ export const useHuman = ({
 
   return {
     pos,
+    size,
     style,
     Human,
     onMove,
