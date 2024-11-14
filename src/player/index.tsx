@@ -1,3 +1,4 @@
+import { PLAYER } from "@/const/player";
 import { useHuman } from "@/human";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,7 @@ type PlayerKeyMove = (typeof PlayerKeyMoveConst)[number];
 const PlayerKeyJumpConst = [" "] as const;
 
 type PlayerKeyJump = (typeof PlayerKeyMoveConst)[number];
+
 
 interface usePlayerProps { }
 const usePlayer = ({ }: usePlayerProps) => {
@@ -54,13 +56,13 @@ const usePlayer = ({ }: usePlayerProps) => {
               jump: false,
               validJump: false
             })
-          }, 100);
+          }, PLAYER.JUMP_TIME);
           setTimeout(() => {
             setJump({
               jump: false,
               validJump: true
             })
-          }, 1000);
+          }, PLAYER.JUMP_COOLDOWN);
           return {
             jump: true,
             validJump: false
