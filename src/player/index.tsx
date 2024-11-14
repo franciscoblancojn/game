@@ -5,12 +5,21 @@ const PlayerKeyMoveConst = ["w", "d", "s", "a"] as const;
 
 type PlayerKeyMove = (typeof PlayerKeyMoveConst)[number];
 
-interface usePlayerProps {}
-const usePlayer = ({}: usePlayerProps) => {
+const PlayerKeyJumpConst = [" "] as const;
+
+type PlayerKeyJump = (typeof PlayerKeyMoveConst)[number];
+
+interface usePlayerProps { }
+const usePlayer = ({ }: usePlayerProps) => {
   type KeyPressType = {
     [id in PlayerKeyMove]?: boolean;
   };
   const [keyPress, setKeyPress] = useState<KeyPressType>({});
+  type JumpType = {
+    jump?: boolean
+    validJump?: boolean
+  }
+  const [jump, setJump] = useState<JumpType>({ validJump: true })
 
   const { Human, onMove } = useHuman({});
 
@@ -18,13 +27,16 @@ const usePlayer = ({}: usePlayerProps) => {
     onMove({
       x: keyPress.d ? 1 : keyPress.a ? -1 : 0,
       y: keyPress.s ? 1 : keyPress.w ? -1 : 0,
+      speed: jump.jump ? 1 : undefined
     });
   };
+
   const onChangeKeyPress = (value: boolean) => (e: KeyboardEvent) => {
-    const key = e.key.toLowerCase() as PlayerKeyMove;
+    const key = e.key.toLowerCase() as any;
+
     if (PlayerKeyMoveConst.includes(key)) {
       setKeyPress((e) => {
-        if (e[key] == value) {
+        if (e[key as PlayerKeyMove] == value) {
           return e;
         }
         const keyP = {
@@ -34,6 +46,29 @@ const usePlayer = ({}: usePlayerProps) => {
         return keyP;
       });
     }
+    if (PlayerKeyJumpConst.includes(key ) && value) {
+      setJump((e) => {
+        if (e.validJump) {
+          setTimeout(() => {
+            setJump({
+              jump: false,
+              validJump: false
+            })
+          }, 100);
+          setTimeout(() => {
+            setJump({
+              jump: false,
+              validJump: true
+            })
+          }, 1000);
+          return {
+            jump: true,
+            validJump: false
+          }
+        }
+        return e
+      })
+    }
   };
   useEffect(() => {
     const t = setInterval(() => {
@@ -42,7 +77,7 @@ const usePlayer = ({}: usePlayerProps) => {
     return () => {
       clearInterval(t);
     };
-  }, [keyPress]);
+  }, [keyPress,jump]);
 
   const onLoadPlayer = () => {
     document.addEventListener("keydown", onChangeKeyPress(true));

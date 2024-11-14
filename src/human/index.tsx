@@ -5,6 +5,7 @@ import { CSSProperties, useEffect, useMemo, useState } from "react";
 export type HumanPos = {
   x: number;
   y: number;
+  speed?: number;
 };
 
 export interface useHumanProps {
@@ -23,15 +24,15 @@ export const useHuman = ({
   const [move, setMove] = useState(false);
   const [directionX, setDirectionX] = useState<"right" | "left">("right");
 
-  const onMove = ({ x, y }: HumanPos) => {
+  const onMove = ({ x, y,speed : speedP }: HumanPos) => {
     const length = Math.max(Math.sqrt(Number(x) ** 2 + Number(y) ** 2), 0.1);
     const nx = x / length;
     const ny = y / length;
 
     setPos((old) => {
       const pos = { ...old };
-      pos.x += nx * speed;
-      pos.y += ny * speed;
+      pos.x += nx * (speedP ?? speed);
+      pos.y += ny * (speedP ?? speed);
       return validatePos({ ...pos, size });
     });
     if (x != 0) {
