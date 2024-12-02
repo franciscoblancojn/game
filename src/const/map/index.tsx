@@ -1,3 +1,3 @@
 export const MAP = {
-  SCALE: 100,
+  SCALE: 7,
 };

@@ -1,17 +1,30 @@
+import { ENEMY } from "@/const/enemy";
 import { useHuman } from "@/entities/human";
 import { usePlayerData } from "@/entities/player";
 import { useEffect } from "react";
+import { useHumanPos } from "../human/pos";
 
 
-
+const size = 10
 interface useEnemyProps { }
 const useEnemy = ({ }: useEnemyProps) => {
   const { player ,onHit} = usePlayerData()
 
-  const { Human, onMove,pos, size} = useHuman({defaultPos : {
-    x:Math.random()*100,
-    y:Math.random()*100
-  },});
+  const { onMove ,move,pos,} = useHumanPos({
+    speed: ENEMY.SPEED,
+    defaultPos : {
+      x:Math.random()*100,
+      y:Math.random()*100
+    }
+  })
+
+  const { Human } = useHuman({
+    name:"enemy",
+    type:"enemy",
+    move,
+    pos,
+    size
+  });
 
   const getIfToushPlayer = ()=>{
     return  Math.abs((player?.pos?.x ?? 0 )- pos.x) <= (size + (player.size ?? 0)) / 2 &&

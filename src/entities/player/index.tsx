@@ -24,8 +24,6 @@ export const usePlayerData = () => {
   const { data: player, setDataFunction, onConcatData, onChangeData } = useData<PlayerData>({ coolDownJump: false, size: 10, live: 100, coolDownHit: false }, {
     useGlobalContext: 'player'
   })
-  console.log("live", player.live);
-
 
   const onJump = () => {
     setDataFunction((e) => {
@@ -90,7 +88,9 @@ const usePlayer = ({ }: usePlayerProps) => {
   const { player, onJump, setPos } = usePlayerData()
 
   const { onMove ,move,pos} = useHumanPos({
-    speed: player.jump ?PLAYER.JUMP_SPEED :  PLAYER.SPEED
+    speed: player.jump ?PLAYER.JUMP_SPEED :  PLAYER.SPEED,
+    onChangePos:setPos,
+    size:player.size,
   })
 
   const { Human } = useHuman({
@@ -98,7 +98,7 @@ const usePlayer = ({ }: usePlayerProps) => {
     type:"player",
     size: player.size,
     move,
-    pos
+    pos,
   });
 
   const onMovePlayer = (keyPress: KeyPressType) => {

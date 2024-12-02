@@ -1,6 +1,7 @@
 .player {
-    position: fixed;
-    inset: 0;
-    margin: auto;
-    
+    [data-id="human"]{
+        // position: fixed;
+        // inset: 0 !important;
+        // margin: auto;
+    }
 }

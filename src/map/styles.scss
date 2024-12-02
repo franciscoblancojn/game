@@ -1,6 +1,7 @@
 [data-id="map"] {
   background: gray;
-  overflow: auto;
+  position: fixed;
+  inset: 0;
   // aspect-ratio: 1/1;
   width: 100dvw;
   height: 100dvh;

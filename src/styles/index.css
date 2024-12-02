@@ -4,6 +4,9 @@ body {
   margin: 0;
   display: grid;
   place-items: center;
+  width: 100dvw;
+  height: 100dvw;
+  overflow: hidden;
 }
 
 html {
@@ -91,15 +94,10 @@ html {
   fill: var(--human-body-2, #474747);
 }
 
-.player {
-  position: fixed;
-  inset: 0;
-  margin: auto;
-}
-
 [data-id=map] {
   background: gray;
-  overflow: auto;
+  position: fixed;
+  inset: 0;
   width: 100dvw;
   height: 100dvh;
   background-image: linear-gradient(90deg, #333 30px, white 30px), linear-gradient(90deg, white 30px, #333 30px), linear-gradient(90deg, #333 30px, white 30px);
