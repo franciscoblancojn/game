@@ -2,6 +2,7 @@ import { PLAYER } from "@/const/player";
 import { HumanPos, useHuman } from "@/entities/human";
 import { useData } from "fenextjs";
 import { useEffect, useState } from "react";
+import { useHumanPos } from "../human/pos";
 
 const PlayerKeyMoveConst = ["w", "d", "s", "a"] as const;
 
@@ -88,9 +89,16 @@ const usePlayer = ({ }: usePlayerProps) => {
   const [keyPress, setKeyPress] = useState<KeyPressType>({});
   const { player, onJump, setPos } = usePlayerData()
 
-  const { Human, onMove } = useHuman({
-    onChangePos: setPos,
-    size: player.size
+  const { onMove ,move,pos} = useHumanPos({
+    speed: player.jump ?PLAYER.JUMP_SPEED :  PLAYER.SPEED
+  })
+
+  const { Human } = useHuman({
+    name:"player",
+    type:"player",
+    size: player.size,
+    move,
+    pos
   });
 
   const onMovePlayer = (keyPress: KeyPressType) => {

@@ -1,57 +1,26 @@
 import { parseStyles } from "@/functions/parseStyles";
-import { validatePos } from "@/functions/validatePos";
-import { CSSProperties, useEffect, useMemo, useState } from "react";
+import { CSSProperties, useMemo } from "react";
 
 export type HumanPos = {
   x: number;
   y: number;
-  speed?: number;
+  directionX?: "right" | "left";
 };
 
 export interface useHumanProps {
+  name:string
+  type:string
   size?: number;
-  speed?: number;
-  defaultPos?: HumanPos;
-  onLoad?: () => void;
-  onChangePos?:(pos:HumanPos)=>void
+  pos?: HumanPos;
+  move?:boolean
 }
 export const useHuman = ({
+  name,
+  type,
   size = 10,
-  speed = 0.2,
-  defaultPos = { x: 0, y: 0 },
-  onLoad,
-  onChangePos,
+  pos = { x: 0, y: 0 },
+  move,
 }: useHumanProps) => {
-  const [pos, setPos] = useState<HumanPos>(defaultPos);
-  const [move, setMove] = useState(false);
-  const [directionX, setDirectionX] = useState<"right" | "left">("right");
-
-  const onMove = ({ x, y, speed: speedP }: HumanPos) => {
-    const length = Math.max(Math.sqrt(Number(x) ** 2 + Number(y) ** 2), 0.1);
-    const nx = x / length;
-    const ny = y / length;
-
-    setPos((old) => {
-      const pos = { ...old };
-      pos.x += nx * (speedP ?? speed);
-      pos.y += ny * (speedP ?? speed);
-      const newPos = validatePos({ ...pos, size });
-      if(JSON.stringify(old)==JSON.stringify(newPos)){
-        return old
-      }
-      onChangePos?.(newPos)
-      return newPos
-    });
-    if (x != 0) {
-      setDirectionX(x > 0 ? "right" : "left");
-    }
-    setMove(x + y != 0);
-  };
-  const onLoadHuman = () => {
-    onLoad?.();
-  };
-  useEffect(onLoadHuman, []);
-
   const style = useMemo<CSSProperties>(() => {
     return parseStyles({
       width: size,
@@ -66,7 +35,9 @@ export const useHuman = ({
       <>
         <div
           data-id="human"
-          className={`human ${move ? "human-move" : "human-stop"} human-directionX-${directionX}`}
+          data-name={name}
+          data-type={type}
+          className={`human ${move ? "human-move" : "human-stop"} human-directionX-${pos.directionX}`}
           style={style}
         >
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,13 +71,9 @@ export const useHuman = ({
         </div>
       </>
     );
-  }, [style, directionX, move]);
+  }, [style, move,name,type]);
 
   return {
-    pos,
-    size,
-    style,
     Human,
-    onMove,
   };
 };
