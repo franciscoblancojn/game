@@ -13,6 +13,13 @@ html {
   margin: 0;
 }
 
+[data-id=block] {
+  width: 10rem;
+  height: 10rem;
+  background: red;
+  position: fixed;
+}
+
 .enemy {
   --human-hat:#a50606;
   --human-face:#047b00;

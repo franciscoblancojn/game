@@ -1,30 +1,41 @@
 import { parseStyles } from "@/functions/parseStyles";
+import { Direction } from "@/interfaces/Direction";
+import { Pos } from "@/interfaces/Pos";
+import { Size } from "@/interfaces/Size";
 import { CSSProperties, useMemo } from "react";
 
-export type HumanPos = {
-  x: number;
-  y: number;
-  directionX?: "right" | "left";
+export interface HumanPos extends Pos {
+  
+};
+
+export interface HumanSize extends Size {
+};
+export interface HumanDirection extends Direction {
 };
 
 export interface useHumanProps {
   name:string
   type:string
-  size?: number;
+  size?: HumanSize;
   pos?: HumanPos;
+  direction?: HumanDirection;
   move?:boolean
 }
 export const useHuman = ({
   name,
   type,
-  size = 10,
+  size = {
+    height:10,
+    width:10,
+  },
   pos = { x: 0, y: 0 },
+  direction,
   move,
 }: useHumanProps) => {
   const style = useMemo<CSSProperties>(() => {
     return parseStyles({
-      width: size,
-      height: size,
+      width: size.width,
+      height: size.height,
       top: pos.y,
       left: pos.x,
     });
@@ -37,7 +48,7 @@ export const useHuman = ({
           data-id="human"
           data-name={name}
           data-type={type}
-          className={`human ${move ? "human-move" : "human-stop"} human-directionX-${pos.directionX}`}
+          className={`human ${move ? "human-move" : "human-stop"} human-directionX-${direction?.x} human-directionY-${direction?.y}`}
           style={style}
         >
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +82,7 @@ export const useHuman = ({
         </div>
       </>
     );
-  }, [style, move,name,type]);
+  }, [style, move,name,type,direction]);
 
   return {
     Human,

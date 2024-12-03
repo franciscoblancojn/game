@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { HumanPos } from ".";
+import { HumanPos, HumanSize } from ".";
 import { validatePos } from "@/functions/validatePos";
 
 export interface useHumanPosProps{
-    defaultPos?:HumanPos
+  defaultPos?:HumanPos
+  pos?:HumanPos
     speed?:number
-    size?:number
+    size?:HumanSize
 
     onChangePos?:(d:HumanPos)=>void
 }
@@ -16,8 +17,12 @@ export const useHumanPos = ({
         y:0,
     },
     speed = 1,
-    size= 10,
-    onChangePos
+    size= {
+      height:10,
+      width:10
+    },
+    onChangePos,
+    pos:posProps
 }:useHumanPosProps) => {
   const [pos, setPos] = useState<HumanPos>(defaultPos);
   const [move, setMove] = useState(false);
@@ -29,12 +34,12 @@ export const useHumanPos = ({
     
 
     setPos((old) => {
-      let pos = { ...old };
+      let pos = { ...old,...posProps };
       pos.x += nx * speed;
       pos.y += ny * speed;
       pos = {
         ...pos,
-        ...validatePos({ ...pos, size })
+        ...validatePos({ pos, size })
       }
       if(JSON.stringify(old)==JSON.stringify(pos)){
         return old
